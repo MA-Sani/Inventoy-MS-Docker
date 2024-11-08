@@ -28,21 +28,8 @@ Using one of the Release Tags is recommended as the other tags are untested and 
 - 0.0.10
 - 0.0.8
 
-## Links
 
-### [Docker Hub](https://hub.docker.com/r/zeigren/inventree)
 
-### [GitHub](https://github.com/Zeigren/inventree-docker)
-
-## Stack
-
-- [Python:Alpine](https://hub.docker.com/_/python) for InvenTree
-- [NGINX:Alpine](https://hub.docker.com/_/nginx)
-- [MariaDB:10](https://hub.docker.com/_/mariadb)
-
-### For Development
-
-- [phpMyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
 
 ## Configuration
 
@@ -80,7 +67,6 @@ On first run you'll need to create a superuser using the variables in the `.yml`
 
 ### InvenTree
 
-The [Dockerfile](https://docs.docker.com/engine/reference/builder/) uses [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/), [build hooks](https://docs.docker.com/docker-hub/builds/advanced/#build-hook-examples), and [labels](http://label-schema.org/rc1/#build-time-labels) for automated builds on Docker Hub.
 
 The multi-stage build creates a container that can be used for development and another for production. The development container has all the build dependencies for the python packages which are installed into a [python virtual environment](https://docs.python.org/3/tutorial/venv.html). The production container copies the python virtual environment from the development container and runs InvenTree from there, this allows it to be much more lightweight.
 
