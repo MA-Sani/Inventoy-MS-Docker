@@ -1,0 +1,35 @@
+version: "3.7"
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
+services:
+  nginx:
+    volumes:
+      - ./config/inventree_nginx.conf:/etc/nginx/templates/nginx.conf.template
+    ports:
+      - 9080:80
+
+  inventree:
+    image: inventree:development
+    environment:
+      - DEBUG=True
+      - DEBUG_TOOLBAR=True
+      - MIGRATE_STATIC=False
+    volumes:
+      - ./InvenTree:/usr/src/app
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - mariadb
+    networks:
+      - mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=CHANGEME
+      - MYSQL_DATABASE=inventree
+      - MYSQL_USER=inventree
+      - MYSQL_PASSWORD=CHANGEME
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+      - PMA_USER=inventree
+      - PMA_PASSWORD=CHANGEME
+    ports:
+      - 6060:80
